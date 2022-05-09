@@ -5,16 +5,16 @@ jobs:
     name: Mixeway Scanning
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v1
-      - name: Prepare variables
+    - uses: actions/checkout@v1
+    - name: Prepare variables
         id: vars
         shell: bash
         run: |
           echo "##[set-output name=branch;]$(echo{GITHUB_REF#refs/heads/})"
           echo "::set-output name=sha_short::$(git rev-parse HEAD)"
-        - name: Prepare Mixeway docker image
+    - name: Prepare Mixeway docker image
           run: |
             docker pull mixeway/scanner:latest
-        - name: Run Scan
+    - name: Run Scan
           run: |
             docker run -e OSS_USERNAME=marilla.daily@gmail.com -e OSS_KEY=88709e98fe5aa4513d2f108d70dc5fc6020150bb -e MIXEWAY_URL=https://hub.mixeway.io -e MIXEWAY_KEY=bb9fc100-f89e-416a-b24b-27756413e210 -e MIXEWAY_PROJECT_ID=93 -e MODE=STANDALONE -e MIXEWAY_PROJECT_NAME=UlaTwo_lab_secure_app -e COMMIT_ID=test -e BRANCH=master -v /opt/lab_sec_audit/sast:/opt/sources 
